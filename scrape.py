@@ -106,10 +106,6 @@ def podcasts_index_get_rss_feed(podcasts):
     index = podcastindex.init(podcastindex_config)
 
     for name, url in podcasts.items():
-        # FIXME testing escape
-        if name != "Two's Complement":
-            continue
-
         print(name)
         try:
             result = index.search(name)
