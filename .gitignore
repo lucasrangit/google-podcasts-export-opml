@@ -1,4 +1,5 @@
-secrets.py
 *.opml
 *.html
 __pycache__
+data.json
+secrets.txt
