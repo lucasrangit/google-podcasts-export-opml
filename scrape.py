@@ -143,16 +143,12 @@ if __name__ == "__main__":
     # get google podcast dictionary {title, url}
     podcasts = get_google_podcast_url_from_file("Google Podcasts - Subscriptions.html")
 
-    print(f"Extracted {len(podcasts)} podcasts")
-
     # convert google podcast urls to rss feed urls
     # rss_feeds = podcasts_get_rss_feed(podcasts)
 
     rss_feeds = podcasts_index_get_rss_feed(podcasts)
 
-    print(f"Found {len(rss_feeds)} RSS feeds")
-
-    pprint(rss_feeds)
-
     create_opml_file(rss_feeds, "podcasts.opml")
 
+    print(f"Found {len(podcasts)} podcasts")
+    print(f"Found {len(rss_feeds)} RSS feeds")
