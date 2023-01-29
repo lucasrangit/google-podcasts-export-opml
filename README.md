@@ -19,5 +19,5 @@ A free https://podcastindex.org/ API key is required to perform the podcast titl
 
 1. On the https://podcasts.google.com/subscriptions, run the contents of 'scape.js' in your web browser's console.
 1. Copy the resulting object and save it to a new file named 'data.json'.
-1. Create 'secrets.txt' with Podcast Index API key.
-1. Run `python3 scrape.py`
+1. Run `python3 scrape.py`.
+1. Review the results in 'podcasts.opml'.
