@@ -1,13 +1,7 @@
 #!/usr/bin/env python3
 import json
 import xml.sax.saxutils as saxutils
-from pprint import pprint
-from secrets import \
-    podcastindex_config  # create file with https://podcastindex.org API key
-from sys import exit
-
 import podcastindex
-
 
 def podcasts_index_get_rss_feed(podcasts):
     rss_feeds = {}
@@ -15,14 +9,12 @@ def podcasts_index_get_rss_feed(podcasts):
     index = podcastindex.init(podcastindex_config)
 
     for name, url in podcasts.items():
-        print(name)
         try:
             result = index.search(name)
-            # pprint(result)
             rss_url = result["feeds"][0]['url']
             rss_feeds[name] = rss_url
-        except Exception() as e:
-            print(e)
+        except Exception as e:
+            print(f"Error while searching for {name}: {e}")
 
     return rss_feeds
 
@@ -53,6 +45,12 @@ def get_google_podcast_url_from_file(filename):
         return json.load(file)
 
 if __name__ == "__main__":
+    try:
+        podcastindex_config = open("secrets.txt", "r").read().strip()
+    except FileNotFoundError as e:
+        print("secrets.txt with the PodcastIndex API key is missing.")
+        exit(1)
+
     # get google podcast dictionary from file {title, url}
     podcasts = get_google_podcast_url_from_file('data.json')
 
