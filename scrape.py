@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 import re
-from secrets import api_key, api_secret # create file with https://podcastindex.org API key
 import urllib.parse
 import xml.sax.saxutils as saxutils
 from pprint import pprint
+from secrets import \
+    podcastindex_config  # create file with https://podcastindex.org API key
 from sys import exit
 
+import podcastindex
 import requests
 from bs4 import BeautifulSoup
 
+# TODO add requests-cache https://requests-cache.readthedocs.io/en/stable/
 
 def get_google_podcast_url_from_file(filename):
     podcasts = {}
@@ -97,6 +100,27 @@ def podcasts_get_rss_feed(podcasts):
 
     return rss_feeds
 
+def podcasts_index_get_rss_feed(podcasts):
+    rss_feeds = {}
+
+    index = podcastindex.init(podcastindex_config)
+
+    for name, url in podcasts.items():
+        # FIXME testing escape
+        if name != "Two's Complement":
+            continue
+
+        print(name)
+        try:
+            result = index.search(name)
+            # pprint(result)
+            rss_url = result["feeds"][0]['url']
+            rss_feeds[name] = rss_url
+        except Exception() as e:
+            print(e)
+
+    return rss_feeds
+
 def create_opml_file(data, filename):
     opml = """\
 <?xml version="1.0" encoding="UTF-8"?>
@@ -108,7 +132,7 @@ def create_opml_file(data, filename):
     <outline text="Podcasts">
 """
     for title, url in data.items():
-        escaped_title = saxutils.escape(title)
+        escaped_title = saxutils.escape(title, entities={ "'" : "&apos;" })
         opml += f"      <outline type='rss' text='{escaped_title}' xmlUrl='{url}' />\n"
 
     opml += """    </outline>
@@ -126,7 +150,9 @@ if __name__ == "__main__":
     print(f"Extracted {len(podcasts)} podcasts")
 
     # convert google podcast urls to rss feed urls
-    rss_feeds = podcasts_get_rss_feed(podcasts)
+    # rss_feeds = podcasts_get_rss_feed(podcasts)
+
+    rss_feeds = podcasts_index_get_rss_feed(podcasts)
 
     print(f"Found {len(rss_feeds)} RSS feeds")
 
