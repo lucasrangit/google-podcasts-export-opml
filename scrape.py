@@ -48,7 +48,12 @@ if __name__ == "__main__":
     try:
         podcastindex_config = open("secrets.txt", "r").read().strip()
     except FileNotFoundError as e:
-        print("secrets.txt with the PodcastIndex API key is missing.")
+        print("secrets.txt with the PodcastIndex API key is missing. For example:")
+        print("""\
+podcastindex_config = {
+    "api_key": "KEY",
+    "api_secret": "SECRET"
+}""")
         exit(1)
 
     # get google podcast dictionary from file {title, url}
