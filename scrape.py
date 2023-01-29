@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import re
-import secrets
+from secrets import api_key, api_secret # create file with https://podcastindex.org API key
 import urllib.parse
 import xml.sax.saxutils as saxutils
 from pprint import pprint
@@ -47,7 +47,7 @@ def extract_podcast_rss_feed_from_podcastaddict(url):
     else:
         print(f"Failed to fetch URL: {url}")
 
-def convert_podcast_urls_to_rss_feeds(podcasts):
+def podcasts_get_rss_feed(podcasts):
     rss_feeds = {}
 
     getrss_url = "https://getrssfeed.com/"
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     print(f"Extracted {len(podcasts)} podcasts")
 
     # convert google podcast urls to rss feed urls
-    rss_feeds = convert_podcast_urls_to_rss_feeds(podcasts)
+    rss_feeds = podcasts_get_rss_feed(podcasts)
 
     print(f"Found {len(rss_feeds)} RSS feeds")
 
