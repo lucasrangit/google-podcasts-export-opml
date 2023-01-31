@@ -59,15 +59,14 @@ def create_opml_file(data, filename):
     with open(filename, "w") as f:
         f.write(opml)
 
-def get_google_podcast_url_from_file(filename):
+def load_podcasts_names_from_file(filename):
     with open(filename, "r") as file:
         return json.load(file)
 
 if __name__ == "__main__":
-    # get google podcast dictionary from file {title, url}
-    podcasts = get_google_podcast_url_from_file('data.json')
+    podcasts = load_podcasts_names_from_file('data.json')
 
-    # convert google podcast urls to rss feed urls
+    # get podcast rss feed urls
     rss_feeds = podcasts_index_get_rss_feed(podcasts)
 
     # save the podcasts as OPML XML file
