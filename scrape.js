@@ -1,31 +1,31 @@
 /**
  * Run the following code on https://podcasts.google.com/
- * @returns { name, url }
+ * @returns [ names ]
  */
-function getGooglePodcastUrlFromFile() {
-    // const links = document.querySelectorAll('scrolling-carousel span a');
+function getGooglePodcastNames() {
     const scrollingCarousel = document.querySelector('scrolling-carousel span');
     const links = scrollingCarousel.getElementsByTagName('a');
-    let podcasts = {};
+    let podcasts = [];
     for (let i = 0; i < links.length; i++) {
         const link = links[i];
         try {
             const img = link.querySelector('img');
             const name = img.alt;
-            const url = link.href;
-            podcasts[name] = url;
+            if (name === '') continue;
+            podcasts.push(name);
         } catch (e) {
             const divs = link.getElementsByTagName("div");
             let currentDiv = divs[0];
             for (let i = 0; i < 3; i++) {
                 currentDiv = currentDiv.getElementsByTagName("div")[0];
             }
-            possible_name = currentDiv.innerText;
-            console.log("Failed to get URL for: ", possible_name );
+            const name = currentDiv.innerText;
+            if (name === '') continue;
+            podcasts.push(name);
         }
     }
     return podcasts;
 }
-podcasts = getGooglePodcastUrlFromFile();
+podcasts = getGooglePodcastNames();
 console.log("Found ", Object.keys(podcasts).length, " podcasts in Subscriptions")
 console.log(podcasts);
