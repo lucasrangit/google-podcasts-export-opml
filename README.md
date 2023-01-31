@@ -13,7 +13,13 @@ It performs the following steps.
 A free https://podcastindex.org/ API key is required to perform the podcast title to RSS feed lookup.
 
 1. Sign up at https://api.podcastindex.org/signup
-1. Save API key and secret receive via email to 'secrets.txt'.
+1. Save API key and secret receive via email to 'secrets.txt'. For example:
+```
+podcastindex_config = {
+    "api_key": "KEY",
+    "api_secret": "SECRET"
+}
+```
 
 ## Usage
 
