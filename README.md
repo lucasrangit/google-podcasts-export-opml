@@ -8,6 +8,8 @@ It performs the following steps.
 1. Lookups RSS feeds using https://api.podcastindex.org/ .
 1. Output an OPML.
 
+P.S. ChatGPT was used to implement this solution (see https://sharegpt.com/c/r8XNKlj).
+
 ## Podcast Index API
 
 A free https://podcastindex.org/ API key is required to perform the podcast title to RSS feed lookup.
