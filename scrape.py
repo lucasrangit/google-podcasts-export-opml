@@ -4,27 +4,27 @@ import xml.sax.saxutils as saxutils
 
 import podcastindex
 
-def podcasts_index_get_rss_feed(podcasts):
 
+def get_podcasts_index():
     try:
         # Read the contents of secrets.txt into a string
         with open("secrets.txt", "r") as secrets_file:
             secrets_json = secrets_file.read()
 
-        # Parse the JSON string into a dictionary
-        podcastindex_config = json.loads(secrets_json)
+            # Parse the JSON string into a dictionary
+            podcastindex_config = json.loads(secrets_json)
+
+            return podcastindex.init(podcastindex_config)
     except FileNotFoundError as e:
-        print("secrets.txt with the PodcastIndex API key is missing. For example:")
-        print("""\
-podcastindex_config = {
-    "api_key": "KEY",
-    "api_secret": "SECRET"
-}""")
+        print("secrets.txt with the PodcastIndex API key is missing.")
+        exit(1)
+    except json.JSONDecodeError as e:
+        print("secrets.txt parsing error.")
         exit(1)
 
-    index = podcastindex.init(podcastindex_config)
-
+def podcasts_index_get_rss_feed(podcasts):
     rss_feeds = {}
+    index = get_podcasts_index()
 
     for name, url in podcasts.items():
         print(name)
