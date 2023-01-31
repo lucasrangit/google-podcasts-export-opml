@@ -6,7 +6,7 @@ It performs the following steps.
 
 1. Scrape https://podcasts.google.com/subscriptions for podcasts.
 1. Search for RSS feeds using https://api.podcastindex.org/ .
-1. Outputs a OPML.
+1. Outputs OPML.
 
 P.S. ChatGPT was used to implement this solution (see https://sharegpt.com/c/r8XNKlj).
 
