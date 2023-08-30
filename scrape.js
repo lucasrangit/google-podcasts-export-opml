@@ -170,6 +170,29 @@ function SHA1(msg) {
     return temp.toLowerCase();
 }
 
+/**
+ * Escape HTML entities for use in XML.
+ * 
+ * Specifically, the following characters are replaced with corresponding HTML entities:
+ * 
+ * * & --> &amp;
+ * * < --> &lt;
+ * * > --> &gt;
+ * * " --> &quot;
+ * 
+ * See: https://stackoverflow.com/a/14130005
+ * 
+ * @param {String} str String to escape
+ * @returns {String} Escaped string
+ */
+function htmlEntities(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
 async function searchForPodcastRssUrl(name) {
     // make authorization token
     var apiKey = "KEY";
@@ -200,7 +223,7 @@ async function getPodcastRssUrls(podcasts) {
         const data = await searchForPodcastRssUrl(name);
         // console.log(data);
         if (data.count > 0) {
-            podcast_urls[name] = data.feeds[0].url;
+            podcast_urls[htmlEntities(name)] = data.feeds[0].url;
         }
     }
     return podcast_urls;
