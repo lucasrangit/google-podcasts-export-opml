@@ -1,6 +1,6 @@
 # Export Google Podcasts Subscriptions
 
-Unlike most podcasting apps, Google Podcasts does not support an export (or import) feature. This repository contains client-side JavaScript you can use to export your Google Podcasts subscriptions as OPML.
+Google Podcasts has an OPML export feature as documented in [Migrating your Podcast Shows from Google Podcasts](https://blog.youtube/news-and-events/migrating-your-podcasts/). But in case that doesn't work, this repository contains client-side JavaScript you can use to export your Google Podcasts subscriptions as OPML.
 
 It performs the following steps.
 
